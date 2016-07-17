@@ -1,0 +1,22 @@
+package javaApplication;
+import java.util.*;
+
+public class trial {
+	public static void main(String []args)
+	{
+		trial t =new trial();
+		List<Integer> arr= new ArrayList<Integer>();
+		for(int i=1;i<=5;i++)
+		{
+		arr=trial.add(arr,i);
+		System.out.println(arr);
+		}
+	}
+	public static List<Integer> add(List<Integer> a,int i)
+	{
+		
+		a.add(i);
+		return a;
+	}
+
+}
