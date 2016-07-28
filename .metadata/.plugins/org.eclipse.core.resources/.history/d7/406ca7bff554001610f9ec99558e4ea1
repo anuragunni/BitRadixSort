@@ -5,7 +5,7 @@ import java.io.*;
 
 public class File_Reader 
 {
-	public static List<Integer> main(String[]args)
+	public static void main(String[]args)
 	{
 	Random randomGenerator = new Random();
 	List<Integer> list = new ArrayList<Integer>();
@@ -52,9 +52,8 @@ public class File_Reader
 	}
 
 	//print out the list
-	//System.out.println(list);
-	//Integer[] array = list.toArray(new Integer[list.size()]);
-	return list;
+	System.out.println(list);
+	Integer[] array = list.toArray(new Integer[list.size()]);
 	//System.out.println(array[0]);
 
 }

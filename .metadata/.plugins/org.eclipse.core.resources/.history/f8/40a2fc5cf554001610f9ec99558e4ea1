@@ -5,18 +5,14 @@ import java.io.*;
 
 public class File_Reader 
 {
-	public static List<Integer> main(String[]args)
+	public static void main(String[]args)
 	{
-	Random randomGenerator = new Random();
 	List<Integer> list = new ArrayList<Integer>();
 	try
 	{
 	PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
-	 for(int k=1;k<=1000;k++)
-     {
-     	int randomInt = randomGenerator.nextInt(100000);
-     	writer.println(randomInt);
-     }
+	writer.println(1);
+	writer.println(2);
 	writer.close();
 	}
 	catch (FileNotFoundException e) 
@@ -52,10 +48,9 @@ public class File_Reader
 	}
 
 	//print out the list
-	//System.out.println(list);
-	//Integer[] array = list.toArray(new Integer[list.size()]);
-	return list;
-	//System.out.println(array[0]);
+	System.out.println(list);
+	Integer[] array = list.toArray(new Integer[list.size()]);
+	System.out.println(array[0]);
 
 }
 }

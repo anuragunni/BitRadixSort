@@ -12,7 +12,7 @@ public class implementingDataStructure {
     public static int ExtractionCount=extractionArray.length-1;
     public static void main(String argv[])
     {
-    	
+    	Random randomGenerator = new Random();
         implementingDataStructure obj=new implementingDataStructure();
         for(int j=0;j<extractionArray.length;j++)
         {
@@ -20,7 +20,12 @@ public class implementingDataStructure {
         }
         
         List<Integer> arr= new ArrayList<Integer>();
-        arr=File_Reader.main(null);
+     
+        for(int k=1;k<=10000;k++)
+        {
+        	int randomInt = randomGenerator.nextInt(1000);
+        	arr.add(randomInt);
+        }
         System.out.println(arr.size());
         System.out.println("Before -> "+arr);
         long start = System.currentTimeMillis( );

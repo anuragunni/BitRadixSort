@@ -52,7 +52,7 @@ public class File_Reader
 	}
 
 	//print out the list
-	//System.out.println(list);
+	System.out.println(list);
 	//Integer[] array = list.toArray(new Integer[list.size()]);
 	return list;
 	//System.out.println(array[0]);
