@@ -1,7 +1,7 @@
 package javaApplication;
 
 import java.util.*;
-import java.math.*;
+
 
 public class implementingDataStructure {
 	
@@ -12,20 +12,29 @@ public class implementingDataStructure {
     public static int ExtractionCount=extractionArray.length-1;
     public static void main(String argv[])
     {
+    	Random randomGenerator = new Random();
         implementingDataStructure obj=new implementingDataStructure();
         for(int j=0;j<extractionArray.length;j++)
         {
         	extractionArray[j]=(int)Math.pow(2, j);
         }
-      //  System.out.println(Arrays.toString(extractionArray));
-        List<Integer> arr= new ArrayList<Integer>(Arrays.asList(100000,10000,1000,100,10,1));
-        System.out.println("Before -> "+arr);
-        arr= obj.sort(arr,ExtractionCount);
-        System.out.println("After -> "+arr);
-        //System.out.println(arr.size());
-       
         
-    }
+        List<Integer> arr= new ArrayList<Integer>();
+     
+        for(int k=1;k<=10000;k++)
+        {
+        	int randomInt = randomGenerator.nextInt(1000);
+        	arr.add(randomInt);
+        }
+        System.out.println(arr.size());
+        System.out.println("Before -> "+arr);
+        long start = System.currentTimeMillis( );
+        arr= obj.sort(arr,ExtractionCount);
+        long end = System.currentTimeMillis( );
+        System.out.println("After -> "+arr);
+        System.out.println(end-start);
+        //System.out.println(arr.size());
+     }
 
   
     public List<Integer> sort(List<Integer> input,int ec)
@@ -52,17 +61,10 @@ public class implementingDataStructure {
             else
             {
                     bucket1.arr.add(input.get(i));
-                    bucketsize1=bucket1.arr.size();
-                    
+                    bucketsize1=bucket1.arr.size();       
             }
-        
-        
+         
         }
-      //  System.out.println("Extraction count -> "+ec);
-        
-    //    System.out.println("Contents of bucket 0 before recursive call "+bucket0.arr);
-       
-   //     System.out.println("Contents of bucket 1 before recursive call "+bucket1.arr);
         ec--;
         if(bucket0.arr.size()!=0)
         {
@@ -72,16 +74,8 @@ public class implementingDataStructure {
         {
         	bucket1.arr=sort(bucket1.arr,ec);
         }
-           
-   
-     //   System.out.println("Contents of bucket 0 after recursive call "+bucket0.arr);
        
-       
-     //   System.out.println("Contents of bucket 1 after recursive call "+bucket1.arr);
-          
-           
-           //recursion
-           input.clear();
+        input.clear();
            for(int i=0;i<bucketsize0;i++)
            {
                input.add(i,bucket0.arr.get(i));
@@ -91,10 +85,6 @@ public class implementingDataStructure {
            {
                input.add(i,bucket1.arr.get(i-bucketsize0));
            }
-           
-          // System.out.println("Bucketsize0 "+bucketsize0+" Bucketsize1 "+bucketsize1);           
-        //   System.out.println(input);
-
            return input;
     
         }
