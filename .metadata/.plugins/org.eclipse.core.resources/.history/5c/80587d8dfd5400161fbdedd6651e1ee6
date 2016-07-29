@@ -1,0 +1,137 @@
+package javaApplication;
+
+import java.util.*;
+
+
+public class implementingDataStructure {
+	
+    public static int[] extractionArray= new int[Integer.SIZE-1];
+    public static int ExtractionCount=extractionArray.length-1;
+    public static void main(String argv[])
+    {
+    	final int MAX_RANGE = 1000000;
+        implementingDataStructure obj=new implementingDataStructure();
+        for(int j=0;j<extractionArray.length;j++)
+        {
+        	extractionArray[j]=(int)Math.pow(2, j);
+        }
+        
+        List<Integer> arr= new ArrayList<Integer>();
+        arr=File_Reader.main(null);
+        Integer temp[]=new Integer[arr.size()];
+        temp=arr.toArray(temp);
+        int ss[]=new int[temp.length];
+        for (int i = 0; i < temp.length; i++) {
+			ss[i] = temp[i].intValue();
+		}
+        
+        System.out.println(arr.size());
+        System.out.println("Before -> "+arr);
+        
+        long start = System.currentTimeMillis( );
+        arr= obj.sort(arr,ExtractionCount);
+        long end = System.currentTimeMillis( );
+        
+        long start_ss = System.currentTimeMillis( );
+        ss=obj.sort(ss);
+        long end_ss = System.currentTimeMillis( );
+        
+        System.out.println("\n(Bit Radix Sort)\nAfter -> "+arr);
+        System.out.println("\n(Selection Sort)\nAfter -> "+Arrays.toString(ss));
+        System.out.println(end-start);
+        System.out.println(end_ss-start_ss);
+        //System.out.println(arr.size());
+     }
+    int[] sort(int arr[])
+    {
+    	int N = arr.length;
+        if (N == 0)
+            return arr;
+        /** find max and min values **/
+        int max = arr[0], min = arr[0];
+        for (int i = 1; i < N; i++)
+        {
+            if (arr[i] > max)
+                max = arr[i];
+            if (arr[i] < min)
+                min = arr[i];
+        }
+        int range = max - min + 1;
+ 
+        /** check if range is small enough for count array **/
+        /** else it might give out of memory exception while allocating memory for array **/
+        if (range > MAX_RANGE)
+        {
+            System.out.println("\nError : Range too large for sort");
+            return arr;
+        }
+ 
+        int[] count = new int[range];
+        /** make count/frequency array for each element **/
+        for (int i = 0; i < N; i++)
+            count[arr[i] - min]++;
+        /** modify count so that positions in final array is obtained **/
+        for (int i = 1; i < range; i++)
+            count[i] += count[i - 1];
+        /** modify original array **/
+        int j = 0;
+        for (int i = 0; i < range; i++)
+            while (j < count[i])
+                arr[j++] = i + min;
+        return arr;
+    }
+  
+    public List<Integer> sort(List<Integer> input,int ec)
+    {
+        Bucket bucket0=new Bucket();
+        Bucket bucket1=new Bucket();
+        int bucketsize0=0;
+        int bucketsize1=0;
+        if(input.size()== 1 || ec==-1)
+        {
+        	//System.out.println("Returning Input");
+            return input;
+        }
+        else
+        { 
+        for(int i=0;i<input.size();i++)
+        {
+            if(extractionArray[ec] !=(extractionArray[ec]& input.get(i))) 
+            {
+                    bucket0.arr.add(input.get(i));
+                    bucketsize0=bucket0.arr.size();
+            }
+            
+            else
+            {
+                    bucket1.arr.add(input.get(i));
+                    bucketsize1=bucket1.arr.size();       
+            }
+         
+        }
+        ec--;
+        if(bucket0.arr.size()!=0)
+        {
+            bucket0.arr=sort(bucket0.arr,ec);
+        }     
+        if(bucket1.arr.size()!=0)
+        {
+        	bucket1.arr=sort(bucket1.arr,ec);
+        }
+       
+        input.clear();
+           for(int i=0;i<bucketsize0;i++)
+           {
+               input.add(i,bucket0.arr.get(i));
+               
+           }
+           for(int i=bucketsize0;i<bucketsize0+bucketsize1;i++)
+           {
+               input.add(i,bucket1.arr.get(i-bucketsize0));
+           }
+           return input;
+    
+        }
+    }
+    
+}
